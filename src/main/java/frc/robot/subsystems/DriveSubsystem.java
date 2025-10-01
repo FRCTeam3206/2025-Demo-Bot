@@ -1,8 +1,11 @@
 package frc.robot.subsystems;
 
+import java.util.function.DoubleSupplier;
+
 import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
+import edu.wpi.first.util.function.FloatSupplier;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
@@ -17,11 +20,11 @@ public class DriveSubsystem extends SubsystemBase {
         backRightMotor.follow(frontRightMotor);
         backLeftMotor.follow(frontLeftMotor);
     }
-    public void drive(float forward, float turn){
+    public void drive(double forward, double turn){
         frontRightMotor.set(VictorSPXControlMode.PercentOutput,forward+turn);
         frontLeftMotor.set(VictorSPXControlMode.PercentOutput,forward+turn);
     }
-    public Command getDriveCommand(float forward, float turn){
-        return this.run(()->drive(forward, turn));
+    public Command getDriveCommand(DoubleSupplier forward, DoubleSupplier turn){
+        return this.run(()->drive(forward.getAsDouble(), turn.getAsDouble()));
     }
 }
