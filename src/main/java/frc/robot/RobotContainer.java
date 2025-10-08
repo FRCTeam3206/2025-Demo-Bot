@@ -58,7 +58,7 @@ public class RobotContainer {
    //m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
   private void setDefaultCommands(){
-    m_driveSubsystem.setDefaultCommand(m_driveSubsystem.getDriveCommand(()->m_driverController.getX(), ()->m_driverController.getZ()));
+    m_driveSubsystem.setDefaultCommand(m_driveSubsystem.getDriveCommand(()->m_driverController.getY(), ()->m_driverController.getZ()));
   }
 
   /**
