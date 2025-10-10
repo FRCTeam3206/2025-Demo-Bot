@@ -21,8 +21,9 @@ public class DriveSubsystem extends SubsystemBase {
         backLeftMotor.follow(frontLeftMotor);
     }
     public void drive(double forward, double turn){
-        frontRightMotor.set(VictorSPXControlMode.PercentOutput,forward+turn);
-        frontLeftMotor.set(VictorSPXControlMode.PercentOutput,forward+turn);
+        frontRightMotor.set(VictorSPXControlMode.PercentOutput,forward-turn);
+        frontLeftMotor.set(VictorSPXControlMode.PercentOutput,-(forward+turn));
+        
     }
     public Command getDriveCommand(DoubleSupplier forward, DoubleSupplier turn){
         return this.run(()->drive(forward.getAsDouble(), turn.getAsDouble()));
