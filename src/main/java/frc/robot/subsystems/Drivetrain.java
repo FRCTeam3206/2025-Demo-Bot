@@ -23,6 +23,10 @@ public class Drivetrain {
   private static final double kWheelRadius = 0.0508; // meters
   private static final int kEncoderResolution = 4096;
 
+  /* TODO: The motors we're using are VictorSPX, not PWMSparkMax.
+     TODO: These motors have CAN Ids, not channels. You can find these labeled near each motor. Please
+           add these values to Constants.java and use them.
+  */ 
   private final PWMSparkMax m_leftLeader = new PWMSparkMax(1);
   private final PWMSparkMax m_leftFollower = new PWMSparkMax(2);
   private final PWMSparkMax m_rightLeader = new PWMSparkMax(3);
@@ -100,6 +104,8 @@ public class Drivetrain {
     var wheelSpeeds = m_kinematics.toWheelSpeeds(new ChassisSpeeds(xSpeed, 0.0, rot));
     setSpeeds(wheelSpeeds);
   }
+
+  // TODO: please add a method that will return a command to drive; "this.run(() -> drive())" will create that Command
 
   /** Updates the field-relative position. */
   public void updateOdometry() {

@@ -21,15 +21,21 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  // TODO: Create the Drivetrain subsystem
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  private final CommandXboxController m_weaponsController =
+      new CommandXboxController(OperatorConstants.kWeaponsControllerPort);
+  // TODO: Create a joystick controller for the driver (xbox is for weapons, which means mechanisms)
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+  }
+
+  public void setDefaultCommands() {
+    // TODO: Set the default command for the Drivetrain to be driving based on joystick input
   }
 
   /**
@@ -48,7 +54,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    m_weaponsController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
   }
 
   /**
@@ -59,5 +65,6 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return Autos.exampleAuto(m_exampleSubsystem);
+    // TODO: return a command that will make the robot drive in autonomous
   }
 }
