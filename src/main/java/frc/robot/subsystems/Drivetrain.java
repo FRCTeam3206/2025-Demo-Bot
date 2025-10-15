@@ -13,12 +13,12 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 /** Represents a differential drive style drivetrain. */
 public class Drivetrain {
   public static final double kMaxSpeed = 3.0; // meters per second
-  public static final double kMaxAngularSpeed = 2 * Math.PI; // one rotation per second
-
   private static final double kTrackWidth = 0.381 * 2; // meters
   private static final double kWheelRadius = 0.0508; // meters
   private static final int kEncoderResolution = 4096;
@@ -27,10 +27,10 @@ public class Drivetrain {
      TODO: These motors have CAN Ids, not channels. You can find these labeled near each motor. Please
            add these values to Constants.java and use them.
   */
-  private final PWMSparkMax m_leftLeader = new PWMSparkMax(1);
-  private final PWMSparkMax m_leftFollower = new PWMSparkMax(2);
-  private final PWMSparkMax m_rightLeader = new PWMSparkMax(3);
-  private final PWMSparkMax m_rightFollower = new PWMSparkMax(4);
+  private final VictorSPX m_leftLeader = new VictorSPX(1);
+  private final VictorSPX m_leftFollower = new VictorSPX(2);
+  private final VictorSPX m_rightLeader = new VictorSPX(3);
+  private final VictorSPX m_rightFollower = new VictorSPX(4);
 
   private final Encoder m_leftEncoder = new Encoder(0, 1);
   private final Encoder m_rightEncoder = new Encoder(2, 3);
@@ -55,8 +55,8 @@ public class Drivetrain {
   public Drivetrain() {
     m_gyro.reset();
 
-    m_leftLeader.addFollower(m_leftFollower);
-    m_rightLeader.addFollower(m_rightFollower);
+    m_leftLeader.follow(m_leftFollower);//addFollower(m_leftFollower);
+    m_rightLeader.follow(m_leftFollower);//addFollower(m_rightFollower);
 
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
@@ -90,14 +90,7 @@ public class Drivetrain {
         m_leftPIDController.calculate(m_leftEncoder.getRate(), speeds.leftMetersPerSecond);
     final double rightOutput =
         m_rightPIDController.calculate(m_rightEncoder.getRate(), speeds.rightMetersPerSecond);
-    m_leftLeader.setVoltage(leftOutput + leftFeedforward);
-    m_rightLeader.setVoltage(rightOutput + rightFeedforward);
-  }
-
-  /**
-   * Drives the robot with the given linear velocity and angular velocity.
-   *
-   * @param xSpeed Linear velocity in m/s.
+    m_leftLeader.
    * @param rot Angular velocity in rad/s.
    */
   public void drive(double xSpeed, double rot) {
