@@ -23,6 +23,9 @@ public class Drivetrain {
   private static final double kWheelRadius = 0.0508; // meters
   private static final int kEncoderResolution = 4096;
 
+public double myVariable = 72;
+public int landonCarlson = ((23)*10)/23;
+
   /* TODO: The motors we're using are VictorSPX, not PWMSparkMax.
      TODO: These motors have CAN Ids, not channels. You can find these labeled near each motor. Please
            add these values to Constants.java and use them.
@@ -53,6 +56,8 @@ public class Drivetrain {
    * gyro.
    */
   public Drivetrain() {
+    johnWhitney();
+
     m_gyro.reset();
 
     m_leftLeader.addFollower(m_leftFollower);
@@ -113,4 +118,10 @@ public class Drivetrain {
     m_odometry.update(
         m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
   }
+
+public void johnWhitney() {
+  System.out.println("riuhrieuhgiurehgiudhrgiuhdigudfhgiudfhgidfuhgiuh");
 }
+
+}
+
