@@ -13,6 +13,8 @@ import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 /** Represents a differential drive style drivetrain. */
 public class Drivetrain {
@@ -27,10 +29,10 @@ public class Drivetrain {
      TODO: These motors have CAN Ids, not channels. You can find these labeled near each motor. Please
            add these values to Constants.java and use them.
   */
-  private final PWMSparkMax m_leftLeader = new PWMSparkMax(1);
-  private final PWMSparkMax m_leftFollower = new PWMSparkMax(2);
-  private final PWMSparkMax m_rightLeader = new PWMSparkMax(3);
-  private final PWMSparkMax m_rightFollower = new PWMSparkMax(4);
+  private final VictorSPX m_leftLeader = new VictorSPX(1);
+  private final VictorSPX m_leftFollower = new VictorSPX(2);
+  private final VictorSPX m_rightLeader = new VictorSPX(3);
+  private final VictorSPX m_rightFollower = new VictorSPX(4);
 
   private final Encoder m_leftEncoder = new Encoder(0, 1);
   private final Encoder m_rightEncoder = new Encoder(2, 3);
@@ -90,8 +92,8 @@ public class Drivetrain {
         m_leftPIDController.calculate(m_leftEncoder.getRate(), speeds.leftMetersPerSecond);
     final double rightOutput =
         m_rightPIDController.calculate(m_rightEncoder.getRate(), speeds.rightMetersPerSecond);
-    m_leftLeader.setVoltage(leftOutput + leftFeedforward);
-    m_rightLeader.setVoltage(rightOutput + rightFeedforward);
+    m_leftLeader.set(leftOutput + leftFeedforward);
+    m_rightLeader.set(rightOutput + rightFeedforward);
   }
 
   /**
