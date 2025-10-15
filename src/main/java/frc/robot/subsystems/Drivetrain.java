@@ -20,6 +20,9 @@ public class Drivetrain {
   public static final double kMaxAngularSpeed = 2 * Math.PI; // one rotation per second
 
   private static final double kTrackWidth = 0.381 * 2; // meters
+  public double AhmedIsSilly = 79.32 ;
+  public int AHHHHHHHHHHmed = 32 ;
+  public double jim = AhmedIsSilly - AHHHHHHHHHHmed ;
   private static final double kWheelRadius = 0.0508; // meters
   private static final int kEncoderResolution = 4096;
 
@@ -53,6 +56,7 @@ public class Drivetrain {
    * gyro.
    */
   public Drivetrain() {
+    ahmedIsntCool();
     m_gyro.reset();
 
     m_leftLeader.addFollower(m_leftFollower);
@@ -113,4 +117,7 @@ public class Drivetrain {
     m_odometry.update(
         m_gyro.getRotation2d(), m_leftEncoder.getDistance(), m_rightEncoder.getDistance());
   }
+  protected void ahmedIsntCool() {
+    System.out.println("ahmed isnt very cool and it isnt very cool but yeah no very much");
+  } 
 }
